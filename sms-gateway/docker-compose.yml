@@ -1,0 +1,23 @@
+version: '3.7'
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  data-volume:
+    driver: local
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sms-gateway/web:local
+    volumes:
+      - ./:/app
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    networks:
+      - app-network
